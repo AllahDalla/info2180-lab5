@@ -3,8 +3,10 @@ $host = 'localhost';
 $username = 'lab5_user';
 $password = 'password123';
 $dbname = 'world';
-$country = $_GET['country'];
+// $country = $_GET['country'];
 $context = $_GET['context'];
+$filtered_input = filter_input(INPUT_GET, "country", FILTER_SANITIZE_ENCODED);
+
 
 $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
 if ($context == "cities"){
@@ -12,7 +14,7 @@ if ($context == "cities"){
 							FROM countries
 							JOIN cities
 							ON countries.code=cities.country_code
-							WHERE countries.name LIKE '%$country%';");
+							WHERE countries.name LIKE '%$filtered_input%';");
 	$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	?>
 	<table>
@@ -32,7 +34,7 @@ if ($context == "cities"){
 	<?php 
 
 }else {
-	$stmt = $conn->query("SELECT * FROM countries WHERE name LIKE '%$country%'");
+	$stmt = $conn->query("SELECT * FROM countries WHERE name LIKE '%$filtered_input%'");
 	$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 	?>
 

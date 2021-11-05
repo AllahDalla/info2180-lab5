@@ -24,6 +24,7 @@ function buttonFunction(){
 					let data = await response.text()
 					
 					results.innerHTML = ""+data;
+					switchColor()
 					return;
 
 				}else{
@@ -56,6 +57,7 @@ function buttonFunction(){
 					let data = await response.text()
 					
 					results.innerHTML = ""+data;
+					switchColor()
 					return;
 
 				}else{
@@ -68,4 +70,17 @@ function buttonFunction(){
 
 
 	})
+}
+
+function switchColor() {
+
+	var rows = document.getElementsByTagName("tr");
+	for (let x= 0 ; x < rows.length; x++){
+		if (x%2 == 0){
+			rows[x].classList.add("lightblue");
+
+		}else{
+			rows[x].classList.add("white");
+		}
+	}
 }
